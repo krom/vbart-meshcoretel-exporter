@@ -1,0 +1,29 @@
+global:
+  scrape_interval: 60s
+  scrape_timeout: 15s
+
+scrape_configs:
+  # vbart-meshcoretel-exporter's own process/runtime metrics.
+  - job_name: vbart-meshcoretel-exporter
+    static_configs:
+      - targets: ["vbart-meshcoretel-exporter:9642"]
+    metrics_path: /-/metrics
+
+  # MeshCoreTel devices scraped through vbart-meshcoretel-exporter, snmp_exporter style:
+  # the device address becomes __param_target, the exporter itself is the
+  # actual scrape target, and __param_* labels are dropped automatically by
+  # Prometheus before storage so the password never lands in the TSDB.
+  - job_name: meshcoretel
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - 192.168.0.10 # replace with your device's address
+        labels:
+          __param_password: CHANGEME # replace with your device's admin password
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: vbart-meshcoretel-exporter:9642

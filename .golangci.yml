@@ -1,0 +1,25 @@
+version: "2"
+
+linters:
+  enable:
+    - bodyclose
+    - errcheck
+    - gocritic
+    - gosec
+    - govet
+    - ineffassign
+    - misspell
+    - revive
+    - staticcheck
+    - unconvert
+    - unused
+
+  settings:
+    revive:
+      rules:
+        - name: exported
+
+formatters:
+  enable:
+    - gofmt
+    - goimports

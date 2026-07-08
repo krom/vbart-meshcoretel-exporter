@@ -1,0 +1,196 @@
+{
+    "enabled": true,
+    "history": {
+        "active": true,
+        "psram": true,
+        "degraded": false,
+        "live_only": false,
+        "samples": 240,
+        "sample_capacity": 240,
+        "sample_interval_secs": 60,
+        "archive_restored": false,
+        "archive_restored_samples": 0,
+        "archive_summary_interval_secs": 300,
+        "events": 46,
+        "event_capacity": 96
+    },
+    "archive": {
+        "logical": "archive",
+        "available": false,
+        "path": "archive:/stats",
+        "type": "unavailable",
+        "total_bytes": 0,
+        "used_bytes": 0
+    },
+    "core": {
+        "battery_mv": 4296,
+        "battery_pct": -1,
+        "battery_display_pct": 100,
+        "battery_min_mv": 3000,
+        "battery_max_mv": 4200,
+        "uptime_secs": 894275,
+        "core0_util": 2.9,
+        "errors": 0,
+        "queue_len": 0,
+        "external_power": false,
+        "charging": false,
+        "vbus": false
+    },
+    "radio": {
+        "noise_floor": -88,
+        "last_rssi": -91.00,
+        "last_snr": -7.00,
+        "tx_air_secs": 24179,
+        "rx_air_secs": 78462
+    },
+    "packets": {
+        "recv": 64875,
+        "sent": 19138,
+        "flood_tx": 17548,
+        "direct_tx": 1590,
+        "flood_rx": 56304,
+        "direct_rx": 8555,
+        "recv_errors": 16088,
+        "direct_dups": 25,
+        "flood_dups": 38159,
+        "neighbors": 23
+    },
+    "memory": {
+        "heap_free": 150628,
+        "heap_min": 144176,
+        "heap_max": 135156,
+        "psram_free": 2052703,
+        "psram_min": 2010767,
+        "psram_max": 2031604
+    },
+    "wifi": {
+        "ssid": "KRIOT01",
+        "status": "connected",
+        "connected": true,
+        "state": "connected",
+        "code": 3,
+        "ip": "10.110.6.39",
+        "rssi": -53,
+        "quality": 94,
+        "signal": "excellent",
+        "powersave": "none"
+    },
+    "services": {
+        "mqtt_connected": true,
+        "mqtt_state": "up",
+        "web_enabled": true,
+        "web_panel_up": true,
+        "web_auth": "unlocked",
+        "archive_available": false
+    },
+    "sensors": {
+        "gps_enabled": false,
+        "gps_fix": false,
+        "supply_voltage_v": 4.29,
+        "mcu_temp_c": 54.0
+    },
+    "events": [
+        {
+            "t": 11402,
+            "type": "mqtt_connected",
+            "value": 0
+        },
+        {
+            "t": 11577,
+            "type": "mqtt_disconnected",
+            "value": 0
+        },
+        {
+            "t": 263808,
+            "type": "mqtt_connected",
+            "value": 0
+        },
+        {
+            "t": 263819,
+            "type": "mqtt_disconnected",
+            "value": 0
+        },
+        {
+            "t": 474796,
+            "type": "mqtt_connected",
+            "value": 0
+        },
+        {
+            "t": 474811,
+            "type": "mqtt_disconnected",
+            "value": 0
+        }
+    ],
+    "neighbors_detail": [
+        {
+            "id": "522285",
+            "full_id": "522285C357EC00A9AEDC9673BB74CFFE1958F1777577A66B8598FABA2D53DE03",
+            "heard_secs_ago": 368,
+            "advert_secs_ago": 4294967270,
+            "snr_db": -8.50
+        },
+        {
+            "id": "10103E",
+            "full_id": "10103ECC9F2A753282101890A53FEE04F25AA05A1E36FF4B3F105E95377BF130",
+            "heard_secs_ago": 874,
+            "advert_secs_ago": 877,
+            "snr_db": -10.75
+        },
+        {
+            "id": "7BBB53",
+            "full_id": "7BBB536FC1A7B94B987DD4B4EA8465D26A0F83D64C90DB856443708813FB1149",
+            "heard_secs_ago": 1258,
+            "advert_secs_ago": 1261,
+            "snr_db": -9.00
+        },
+        {
+            "id": "79D8DE",
+            "full_id": "79D8DE9E773785BBA8D1AB81EE98D4DBD052C15D97F3EE433ECE22973FD0C26A",
+            "heard_secs_ago": 2077,
+            "advert_secs_ago": 1817,
+            "snr_db": 10.75
+        },
+        {
+            "id": "9FB5AE",
+            "full_id": "9FB5AEB6C867A19D9CE97C5EC9F11225A963287732A7CAE7540A399882351626",
+            "heard_secs_ago": 3735,
+            "advert_secs_ago": 4294870518,
+            "snr_db": -1.75
+        },
+        {
+            "id": "5A6A52",
+            "full_id": "5A6A52F46E5E074029DDE85E2531B3CFF4207FCCD6EFDBD07F39D5526524ED4C",
+            "heard_secs_ago": 5770,
+            "advert_secs_ago": 5388,
+            "snr_db": -8.25
+        },
+        {
+            "id": "B7BF64",
+            "full_id": "B7BF643265A5ACAE3354CC716F3D187121FC63956A88AD23C286F8B7A54B2A87",
+            "heard_secs_ago": 7137,
+            "advert_secs_ago": 66718776,
+            "snr_db": -5.25
+        },
+        {
+            "id": "694D4B",
+            "full_id": "694D4B83AD1192358473AC4679D8D32F674E9FCFBE15DDD16D942D8C57655B8B",
+            "heard_secs_ago": 10619,
+            "advert_secs_ago": 10622,
+            "snr_db": -11.75
+        },
+        {
+            "id": "CFCC9E",
+            "full_id": "CFCC9E9C536659F80BD987A5BD5DDE771F064DC371236E2AE81822636727E966",
+            "heard_secs_ago": 14241,
+            "advert_secs_ago": 14278,
+            "snr_db": -1.50
+        },
+        {
+            "id": "53333F",
+            "full_id": "53333FE49E8F4595F6114E76B94F14C910D151436873061E011D30A260091789",
+            "heard_secs_ago": 14270,
+            "advert_secs_ago": 13593,
+            "snr_db": -13.75
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+services:
+  vbart-meshcoretel-exporter:
+    build: .
+    image: ghcr.io/krom/vbart-meshcoretel-exporter:latest
+    container_name: vbart-meshcoretel-exporter
+    restart: unless-stopped
+    ports:
+      - "9642:9642"

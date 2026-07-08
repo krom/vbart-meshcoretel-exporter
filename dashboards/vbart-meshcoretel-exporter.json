@@ -1,0 +1,223 @@
+{
+  "title": "vbart-meshcoretel-exporter / MeshCoreTel device",
+  "uid": "vbart-meshcoretel-exporter",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": true,
+  "refresh": "1m",
+  "time": { "from": "now-6h", "to": "now" },
+  "templating": {
+    "list": [
+      {
+        "name": "DS_PROMETHEUS",
+        "type": "datasource",
+        "query": "prometheus",
+        "current": {},
+        "label": "Datasource"
+      },
+      {
+        "name": "instance",
+        "type": "query",
+        "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+        "query": "label_values(meshcoretel_up, instance)",
+        "refresh": 2,
+        "includeAll": true,
+        "multi": true,
+        "label": "Device"
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Up",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "targets": [
+        { "expr": "meshcoretel_up{instance=~\"$instance\"}", "legendFormat": "{{instance}}" }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            { "type": "value", "options": { "0": { "text": "DOWN", "color": "red" }, "1": { "text": "UP", "color": "green" } } }
+          ]
+        }
+      }
+    },
+    {
+      "id": 2,
+      "title": "Uptime",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "fieldConfig": { "defaults": { "unit": "s" } },
+      "targets": [
+        { "expr": "meshcoretel_core_uptime_seconds_total{instance=~\"$instance\"}", "legendFormat": "{{instance}}" }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Battery Voltage",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "fieldConfig": { "defaults": { "unit": "volt" } },
+      "targets": [
+        { "expr": "meshcoretel_core_battery_volts{instance=~\"$instance\"}", "legendFormat": "{{instance}}" }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "MCU Temperature",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "fieldConfig": { "defaults": { "unit": "celsius" } },
+      "targets": [
+        { "expr": "meshcoretel_sensors_mcu_temp_celsius{instance=~\"$instance\"}", "legendFormat": "{{instance}}" }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Charging / External Power",
+      "type": "timeseries",
+      "gridPos": { "h": 4, "w": 8, "x": 0, "y": 4 },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "targets": [
+        { "expr": "meshcoretel_core_charging{instance=~\"$instance\"}", "legendFormat": "{{instance}} charging" },
+        { "expr": "meshcoretel_core_external_power{instance=~\"$instance\"}", "legendFormat": "{{instance}} external_power" }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Radio RSSI / SNR / Noise Floor",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "fieldConfig": { "defaults": { "unit": "dB" } },
+      "targets": [
+        { "expr": "meshcoretel_radio_last_rssi_dbm{instance=~\"$instance\"}", "legendFormat": "{{instance}} rssi" },
+        { "expr": "meshcoretel_radio_last_snr_db{instance=~\"$instance\"}", "legendFormat": "{{instance}} snr" },
+        { "expr": "meshcoretel_radio_noise_floor_dbm{instance=~\"$instance\"}", "legendFormat": "{{instance}} noise_floor" }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Radio TX/RX Air-time Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "fieldConfig": { "defaults": { "unit": "percentunit" } },
+      "targets": [
+        { "expr": "rate(meshcoretel_radio_tx_air_seconds_total{instance=~\"$instance\"}[5m])", "legendFormat": "{{instance}} tx_air" },
+        { "expr": "rate(meshcoretel_radio_rx_air_seconds_total{instance=~\"$instance\"}[5m])", "legendFormat": "{{instance}} rx_air" }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Packet Rates",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "fieldConfig": { "defaults": { "unit": "pps" } },
+      "targets": [
+        { "expr": "rate(meshcoretel_packets_recv_total{instance=~\"$instance\"}[5m])", "legendFormat": "{{instance}} recv" },
+        { "expr": "rate(meshcoretel_packets_sent_total{instance=~\"$instance\"}[5m])", "legendFormat": "{{instance}} sent" },
+        { "expr": "rate(meshcoretel_packets_flood_rx_total{instance=~\"$instance\"}[5m])", "legendFormat": "{{instance}} flood_rx" },
+        { "expr": "rate(meshcoretel_packets_direct_rx_total{instance=~\"$instance\"}[5m])", "legendFormat": "{{instance}} direct_rx" }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Packet Errors & Duplicates",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "fieldConfig": { "defaults": { "unit": "pps" } },
+      "targets": [
+        { "expr": "rate(meshcoretel_packets_recv_errors_total{instance=~\"$instance\"}[5m])", "legendFormat": "{{instance}} recv_errors" },
+        { "expr": "rate(meshcoretel_packets_direct_dups_total{instance=~\"$instance\"}[5m])", "legendFormat": "{{instance}} direct_dups" },
+        { "expr": "rate(meshcoretel_packets_flood_dups_total{instance=~\"$instance\"}[5m])", "legendFormat": "{{instance}} flood_dups" }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Memory (Heap / PSRAM Free)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 24 },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "fieldConfig": { "defaults": { "unit": "bytes" } },
+      "targets": [
+        { "expr": "meshcoretel_memory_heap_free_bytes{instance=~\"$instance\"}", "legendFormat": "{{instance}} heap_free" },
+        { "expr": "meshcoretel_memory_psram_free_bytes{instance=~\"$instance\"}", "legendFormat": "{{instance}} psram_free" }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Wi-Fi RSSI / Quality",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 24 },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "targets": [
+        { "expr": "meshcoretel_wifi_rssi_dbm{instance=~\"$instance\"}", "legendFormat": "{{instance}} rssi" },
+        { "expr": "meshcoretel_wifi_quality_percent{instance=~\"$instance\"}", "legendFormat": "{{instance}} quality" }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Mesh Neighbor Count",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 32 },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "targets": [
+        { "expr": "meshcoretel_packets_neighbors{instance=~\"$instance\"}", "legendFormat": "{{instance}}" }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Neighbors: SNR / Last Heard",
+      "type": "table",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 32 },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "targets": [
+        {
+          "expr": "meshcoretel_neighbor_snr_db{instance=~\"$instance\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto"
+        },
+        {
+          "expr": "meshcoretel_neighbor_heard_seconds{instance=~\"$instance\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "transformations": [
+        { "id": "merge", "options": {} }
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Firmware Build (requires --collect.version)",
+      "type": "table",
+      "gridPos": { "h": 4, "w": 24, "x": 0, "y": 40 },
+      "datasource": { "type": "prometheus", "uid": "${DS_PROMETHEUS}" },
+      "targets": [
+        {
+          "expr": "meshcoretel_build_info{instance=~\"$instance\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "No data (enable --collect.version/VBART_COLLECT_VERSION to populate)"
+        }
+      }
+    }
+  ]
+}
